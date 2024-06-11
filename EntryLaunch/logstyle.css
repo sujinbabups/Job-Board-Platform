@@ -1,0 +1,22 @@
+body{
+    margin: 0;
+}
+.log1{
+    height: 340px;
+    width: 500px;
+    background-color: rgb(233, 229, 229);
+    border: 2px solid white;
+    border: 5px solid rgb(209, 188, 173);
+    
+    border-style: outset;
+    border-radius: 13px;
+    margin: auto;
+    margin-top: 10%;
+}
+.list2{
+    display: none;
+}
+.list1:hover .list2 {
+    display: block;
+    transition: 5 ease-in;
+}
