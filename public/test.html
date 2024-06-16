@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show/Hide Div</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+     <style>
+        .hidden {
+    display: none;
+}
+
+#targetDiv:target {
+    display: block;
+    position: relative;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    /* font-size: 36px; */
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    animation: blink 1s infinite;
+}
+
+.close:hover {
+    color: red;
+}
+
+@keyframes blink {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+    25%, 75% {
+        opacity: 0;
+    }
+}
+
+     </style>
+</head>
+<body>
+
+<a href="#targetDiv">Click here to show the div</a>
+
+<div id="targetDiv" class="hidden">
+    This is the div that will be shown when the link is clicked.
+    <a href="#" class="close" id="closeButton">&times;</a>
+</div>
+
+</body>
+</html>

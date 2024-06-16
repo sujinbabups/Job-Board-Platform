@@ -1,0 +1,45 @@
+body{
+    background-image:url(/images/jobback.jpg);
+    background-repeat: no-repeat; 
+    background-size: cover;
+    margin: 0;
+    background: linear-gradient(to ri);
+    
+
+    
+
+    }
+/* Nav Bar Style */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* padding: 10px; */
+    background-color: #8c9dbd;
+    height: 80px;
+    width: 100%;
+    
+}
+img{
+    position: relative;
+    top: 35px;
+    left: 60px;
+}
+ul{
+    display: flex;
+    gap: 74px;
+    cursor: pointer;
+    
+}
+ul li{
+    list-style-type: none;
+    font-size: 22px;
+    
+}
+ul li:hover{
+    color: whitesmoke;
+    transition: 1s ease;
+    font-size: 25px;
+    text-decoration: underline;
+}
