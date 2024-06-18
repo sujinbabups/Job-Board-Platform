@@ -3,55 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show/Hide Div</title>
-    <!-- <link rel="stylesheet" href="styles.css"> -->
-     <style>
-        .hidden {
-    display: none;
+    <title>Dynamic Table</title>
+    <style>
+        table {
+    width: 50%;
+    border-collapse: collapse;
+    margin: 20px 0;
 }
 
-#targetDiv:target {
-    display: block;
-    position: relative;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+th, td {
+    padding: 8px 12px;
+    text-align: left;
 }
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    /* font-size: 36px; */
-    text-decoration: none;
-    color: black;
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-    animation: blink 1s infinite;
 }
 
-.close:hover {
-    color: red;
-}
-
-@keyframes blink {
-    0%, 50%, 100% {
-        opacity: 1;
-    }
-    25%, 75% {
-        opacity: 0;
-    }
-}
-
-     </style>
+    </style>
 </head>
 <body>
+    <h1>Dynamic Table Example</h1>
+    <table id="data-table" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here dynamically -->
+        </tbody>
+    </table>
 
-<a href="#targetDiv">Click here to show the div</a>
+    <button onclick="addRow()">Add Row</button>
 
-<div id="targetDiv" class="hidden">
-    This is the div that will be shown when the link is clicked.
-    <a href="#" class="close" id="closeButton">&times;</a>
-</div>
+    <script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Data to populate the table initially
+    const initialData = [
+        { id: 1, name: 'Alice', age: 25 },
+        { id: 2, name: 'Bob', age: 30 },
+        { id: 3, name: 'Charlie', age: 35 }
+    ];
 
+    // Function to add a row to the table
+    const tableBody = document.querySelector('#data-table tbody');
+
+    function addRow(data) {
+        const newRow = tableBody.insertRow();
+
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+
+        cell1.innerText = data.id;
+        cell2.innerText = data.name;
+        cell3.innerText = data.age;
+    }
+
+    // Populate the table with initial data
+    initialData.forEach(data => {
+        addRow(data);
+    });
+});
+
+
+
+    </script>
 </body>
 </html>

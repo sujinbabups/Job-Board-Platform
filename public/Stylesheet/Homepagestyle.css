@@ -1,11 +1,11 @@
 
 
 body{
-    background-image:url(/images/jobback.jpg);
+    background-image:url(../images/jobback.jpg);
     background-repeat: no-repeat; 
     background-size: cover;
     margin: 0;
-    background: linear-gradient(to ri);
+
     
 
     
@@ -185,6 +185,13 @@ a{
 }
 #logDiv{
     display: none;
+}
+
+#emplog{
+    display: none;
+}
+#emplog:target{
+    display: block;
 }
 
 .inplog{

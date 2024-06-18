@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EntryLaunch-Login</title>
+    <title>Candidate-Home</title>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-     <link rel="stylesheet" href="/Stylesheet/canHomestyle.css">
+    <link rel="stylesheet" href="./Stylesheet/canHomestyle.css">
 </head>
+
 <body>
     <div class="nav">
         <div>
@@ -22,9 +24,99 @@
         </div>
     </div>
 
+    <div class="maindiv">
+        <div class="dashb" >
+            <h3>Name</h3>
+            <span>Degree</span><br><br>
+            <a href="#dashprofile"><input type="submit" value="Profile"
+                style="color: white; background-color: rgba(13, 22, 99, 0.596);width: 55%"></a>
+            <hr>
+          <a href="#cnhome"><input type="submit" value="My Home"
+                style="margin-top: 50px; color: white; background-color:rgb(55, 24, 83)"></a> <br><br>
+           <a href="#srchdiv"><input type="submit" value="Search Jobs" style="color: white; background-color:rgb(55, 24, 83)"></a> <br><br>
+           <a href="#svjob"><input type="submit" value="Saved Jobs" style="color: white; background-color:rgb(55, 24, 83)"></a> <br><br>
+           <a href="#appli"><input type="submit" value="My Applications" style="color: white; background-color:rgb(55, 24, 83)"></a> <br><br>
+           <a href="jobBoardHome.html"> <input type="submit" value="Logout"
+                style="color: white; background-color:rgb(55, 24, 83);width: 55%;"></a><br><br>
 
+        </div>
+        <div class="dashcnt" id="dashprofile">
+            <h2 style="font-size: 28px;margin-left: 20%;">Complete Your profile</h2>
+            <div class="details">
+                <label for="name">Name :</label>
+                <input type="text" name="" id=""><br><br>
+                <label for="email">Email :</label>
+                <input type="email" name="" id=""><br><br>
+                <label for="dob">D.o.b :</label>
+                <input type="date" name="" id=""><br><br>
+                <label for="edu">Education :</label>
+                <table class="edu" id="eduTable">
+                    <tr>
+                        <th>Sl.no</th>
+                        <th>Course Name</th>
+                        <th>Year of Passing</th>
+                        <th>Grade/Percentage</th>
+                        <th style="width: 20%;"><input type="submit" value="Add"
+                                style="cursor: pointer; color: white;font-weight: bold; width: 80px;height: 28px;border: none;background-color: rgb(47, 47, 88);"
+                                onclick="myCreateFunction()"></th>
+                    </tr>
+
+                </table>
+                <input type="submit" value="Save"
+                    style="width: 12%;height: 28px;font-size: 18px;font-weight: bold;background-color: green;border: none;color: white;position: relative;top: 80px;left: 200px;">
+                <input type="reset" value="Reset"
+                    style="width: 12%;height: 28px;font-size: 18px;font-weight: bold;background-color: rgb(0, 81, 128);border: none;color: white;position: relative;top: 80px;left: 230px;">
+
+            </div>
+
+        </div>
+        <div class="canHome" id="cnhome">
+            <h2 style="font-size: 26px;font-family: sans-serif;margin-left: 25%;">Hy <span>name</span></h2>
+        </div>
+
+        <div class="srfchJob" id="srchdiv">
+            <h3 style="font-size: 26px;font-family: sans-serif;margin-left: 25%;">Search Jobs</h3>
+            <label for="search">Search here :</label>
+            <input type="text" name="" id="" placeholder="Enter job id/role">
+            <input type="submit" value="Search" style="border: none;background-color:rgb(55, 24, 83);color: white;height: 27px; ">
+        </div>
+        <div class="savedJob" id="svjob">
+            <h3 style="font-size: 26px;font-family: sans-serif;margin-left: 25%;">Saved Jobs</h3>
+
+
+        </div>
+        <div class="myappl" id="appli">
+            <h3 style="font-size: 26px;font-family: sans-serif;margin-left: 25%;">Your Applications</h3>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+        function myCreateFunction() {
+            var table = document.getElementById("eduTable");
+            const newRow = table.insertRow();
+            newRow.className = 'new-row';
+            newId = table.rows.length;
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            cell1.textContent=newId-1;
+
+
+
+
+
+
+        }
+    </script>
 
 
 
 </body>
+
 </html>

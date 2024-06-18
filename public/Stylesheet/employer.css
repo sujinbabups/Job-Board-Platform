@@ -1,0 +1,128 @@
+body{
+    background-image:url(../images/jobback.jpg);
+    background-repeat: no-repeat; 
+    background-size: cover;
+    margin: 0;
+    background: linear-gradient(to ri);
+    
+
+    
+
+    }
+/* Nav Bar Style */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* padding: 10px; */
+    background-color: #8c9dbd;
+    height: 80px;
+    width: 100%;
+    
+}
+img{
+    position: relative;
+    top: 35px;
+    left: 60px;
+}
+ul{
+    display: flex;
+    gap: 74px;
+    cursor: pointer;
+    
+}
+ul li{
+    list-style-type: none;
+    font-size: 22px;
+    
+}
+ul li:hover{
+    color: whitesmoke;
+    transition: 1s ease;
+    font-size: 25px;
+    text-decoration: underline;
+}
+.div2{
+    margin: auto;
+}
+.main{
+    height: 650px;
+    width: 70%;
+    background-color:rgb(201, 200, 200);
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 20px;
+    display: flex;
+
+}
+.dash{
+    height: 450px;
+    width: 30%;
+    background-image: linear-gradient(to right,rgb(132, 143, 173),rgb(210, 224, 228));
+    position: relative;
+    top: 10%;
+    margin-left: 40px;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+
+}
+.dash input{
+    width: 50%;
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    background-color:rgb(55, 24, 83);
+    color: white;
+    border-radius: 8px;
+    position: relative;
+    top: 15%;
+    cursor: pointer;
+}
+.addjob{
+    width: 60%;
+    height: 450px;
+    position: relative;
+    top: 10%;
+    left: 2%;
+    padding: 10px;
+    border-radius: 20px;
+    background-image: linear-gradient(to right,rgb(167, 175, 199),rgb(100, 106, 107));
+  
+
+}
+.addjob table tr{
+    background-color: white;
+    
+    
+    color: black;
+}
+.main input:hover{
+    opacity: .8;
+    border: 2px solid rgb(244, 244, 245);
+}
+.addjob table tr input{
+    width: 80%;
+    height: 30px;
+    border: none;
+    background-color:rgb(55, 24, 83);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10%;
+    border-radius: 10px;
+}
+table{
+    width: 90%;
+    margin: auto;
+}
+#adjob{
+    display: none;
+}
+#adjob:target{
+    display: block;
+}
+
