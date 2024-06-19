@@ -3,35 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Table</title>
+    <title>Table with Input Fields</title>
     <style>
-        table {
+        body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
     width: 50%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 0 auto;
 }
 
 th, td {
     padding: 8px 12px;
     text-align: left;
+    border: 1px solid #ddd;
 }
 
 th {
     background-color: #f2f2f2;
+    font-weight: bold;
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
 }
 
     </style>
 </head>
 <body>
-    <h1>Dynamic Table Example</h1>
-    <table id="data-table" border="1">
+    <h1>Table with Input Fields</h1>
+    <table id="data-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -40,44 +55,22 @@ button {
             </tr>
         </thead>
         <tbody>
-            <!-- Rows will be added here dynamically -->
+            <tr>
+                <td>1</td>
+                <td><input type="text" value="Alice"></td>
+                <td><input type="number" value="25"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><input type="text" value="Bob"></td>
+                <td><input type="number" value="30"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><input type="text" value="Charlie"></td>
+                <td><input type="number" value="35"></td>
+            </tr>
         </tbody>
     </table>
-
-    <button onclick="addRow()">Add Row</button>
-
-    <script>
-document.addEventListener('DOMContentLoaded', (event) => {
-    // Data to populate the table initially
-    const initialData = [
-        { id: 1, name: 'Alice', age: 25 },
-        { id: 2, name: 'Bob', age: 30 },
-        { id: 3, name: 'Charlie', age: 35 }
-    ];
-
-    // Function to add a row to the table
-    const tableBody = document.querySelector('#data-table tbody');
-
-    function addRow(data) {
-        const newRow = tableBody.insertRow();
-
-        const cell1 = newRow.insertCell(0);
-        const cell2 = newRow.insertCell(1);
-        const cell3 = newRow.insertCell(2);
-
-        cell1.innerText = data.id;
-        cell2.innerText = data.name;
-        cell3.innerText = data.age;
-    }
-
-    // Populate the table with initial data
-    initialData.forEach(data => {
-        addRow(data);
-    });
-});
-
-
-
-    </script>
 </body>
 </html>

@@ -78,7 +78,7 @@
             <h3 style="font-size: 26px;font-family: sans-serif;margin-left: 25%;">Search Jobs</h3>
             <label for="search">Search here :</label>
             <input type="text" name="" id="" placeholder="Enter job id/role">
-            <input type="submit" value="Search" style="border: none;background-color:rgb(55, 24, 83);color: white;height: 27px; ">
+            <input type="submit" value="Search" style="border: none;background-color:rgb(55, 24, 83);color: white;height: 27px;width: 18%;border-radius: 5px; ">
         </div>
         <div class="savedJob" id="svjob">
             <h3 style="font-size: 26px;font-family: sans-serif;margin-left: 25%;">Saved Jobs</h3>
@@ -100,17 +100,19 @@
             var table = document.getElementById("eduTable");
             const newRow = table.insertRow();
             newRow.className = 'new-row';
+            
             newId = table.rows.length;
-            const cell1 = newRow.insertCell(0);
-            const cell2 = newRow.insertCell(1);
-            const cell3 = newRow.insertCell(2);
-            const cell4 = newRow.insertCell(3);
-            cell1.textContent=newId-1;
-
-
-
-
-
+            const cell1 = newRow.insertCell();
+            const cell2 = newRow.insertCell();
+            const cell3 = newRow.insertCell();
+            const cell4 = newRow.insertCell();
+           const input=document.createElement('input');
+           input.type='text';
+           
+           cell1.appendChild(input);
+        //    cell2.appendChild(input);
+        //    cell3.appendChild(input);
+        //    cell4.appendChild(input);
 
         }
     </script>
