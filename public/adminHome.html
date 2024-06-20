@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Home</title>
+    <link rel="stylesheet" href="Stylesheet/adminStyle.css">
+</head>
+
+<body>
+    <div class="nav">
+        <div>
+            <img src="images/logo.png" alt="" style="width: 50px;">
+            <h3 style="font-size: 30px;position: relative;top: -5px;">EntryLaunch</h3>
+        </div>
+        <!-- <div class="div2">
+            <ul>
+                <li>Home</li>
+                <li>Recruiters</li>
+                <li>Contact</li>
+            </ul>
+        </div> -->
+    </div>
+    <div class="main">
+        <div class="dash">
+            <a href="#addemp"><input type="submit" value="Add Employer"></a><br><br>
+            <a href="#vwemp"><input type="submit" value="View Employers"></a><br><br>
+            <a href="#rmemp"><input type="submit" value="Remove Employers"></a><br><br>
+            <a href="\"><input type="submit" value="Logout" style="width: 40%;"></a>
+
+        </div>
+        <div class="addEmployer" id="addemp">
+            <h2 style="font-size: 30px;font-family: sans-serif;margin-left: 20%;">Add a New Employer</h2>
+            <table>
+                <tr >
+                    <th style="width: 8%;">Emp_Id</th>
+                    <th >Co.Name</th>
+                    <th>Place</th>
+                    <th>Type of Co.</th>
+                    <th>Email</th>
+                </tr>
+                <tr class="ipfeild">
+                    <td ><input type="text" name="" id="" ></td>
+                    <td><input type="text" name="" id=""></td>
+                    <td><input type="text" name="" id=""></td>
+                    <td><input type="text" name="" id=""></td>
+                    <td><input type="text" name="" id=""></td>
+                    <td><input type="submit" value="Add" id="" style="width: 100%;height: 100%;border: none;color: white;font-size: 26px; text-align: center;background-color: green;cursor: pointer;font-weight: bold;font-family: sans-serif;"></td>
+
+
+                </tr>
+            </table>
+
+        </div>
+        <div class="viewEmployer" id="vwemp">
+            <h2 style="font-size: 30px;font-family: sans-serif;margin-left: 20%;">View Employers</h2>
+            <table>
+                <tr>
+                    <th>EmpID</th>
+                    <th>Co.Name</th>
+                    <th>Place</th>
+                    <th>No.of Placements</th>
+                </tr>
+            </table>
+        </div>
+        <div class="remEmployer" id="rmemp">
+            <h2 style="font-size: 30px;font-family: sans-serif;margin-left: 20%;">Remove Employer</h2>
+            <label for="select" style="font-size: 20px;margin-left: 5%;">Select an employer :</label>
+            <select name="" id=""></select>
+            <input type="submit" value="Remove" style="position: relative;left: 25%;height: 33px;width: 15%;border: none;background-color: rgb(55, 24, 83);color: white;font-size: 18px;font-weight: bold;border-radius: 10px;cursor: pointer;">
+                <table>
+                    <tr>
+                        <th>EmpID</th>
+                        <th>Co.Name</th>
+                    </tr>
+                    
+                </table>
+
+           
+
+        </div>
+
+    </div>
+</body>
+</html>

@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    <div class="nav">
+    <!-- <div class="nav">
         <div>
             <img src="images/logo.png" alt="" style="width: 50px;">
-            <h3 style="font-size: 30px;position: relative;top: -5px;">EntryLaunch</h3>
+            <h3 class="hdding">EntryLaunch</h3>
         </div>
         <div class="div2">
             <ul>
@@ -22,6 +22,11 @@
                 <li>Contact</li>
             </ul>
         </div>
+       
+    </div> -->
+    <div class="main1">
+       <div style="float: left;position: relative;left: 5%;"><h3 class="hdding">EntryLaunch</h3></div> 
+        <h2 style="font-size: 46px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Start Your Career Journey With <br><span class="with">With us</span></h2>
     </div>
 
     <div class="maindiv">
@@ -36,7 +41,7 @@
            <a href="#srchdiv"><input type="submit" value="Search Jobs" style="color: white; background-color:rgb(55, 24, 83)"></a> <br><br>
            <a href="#svjob"><input type="submit" value="Saved Jobs" style="color: white; background-color:rgb(55, 24, 83)"></a> <br><br>
            <a href="#appli"><input type="submit" value="My Applications" style="color: white; background-color:rgb(55, 24, 83)"></a> <br><br>
-           <a href="jobBoardHome.html"> <input type="submit" value="Logout"
+           <a href="/"> <input type="submit" value="Logout"
                 style="color: white; background-color:rgb(55, 24, 83);width: 55%;"></a><br><br>
 
         </div>
@@ -50,7 +55,7 @@
                 <label for="dob">D.o.b :</label>
                 <input type="date" name="" id=""><br><br>
                 <label for="edu">Education :</label>
-                <table class="edu" id="eduTable">
+                <table  id="eduTable" class="edu">
                     <tr>
                         <th>Sl.no</th>
                         <th>Course Name</th>
@@ -106,10 +111,10 @@
             const cell2 = newRow.insertCell();
             const cell3 = newRow.insertCell();
             const cell4 = newRow.insertCell();
-           const input=document.createElement('input');
-           input.type='text';
+        //    const input=document.createElement('input');
+        //    input.type='text';
            
-           cell1.appendChild(input);
+        //    cell1.appendChild(input);
         //    cell2.appendChild(input);
         //    cell3.appendChild(input);
         //    cell4.appendChild(input);

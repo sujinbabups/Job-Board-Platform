@@ -48,7 +48,7 @@ ul li:hover{
 }
 .main{
     height: 650px;
-    width: 85%;
+    width: 75%;
     background-color:rgb(201, 200, 200);
     margin: auto;
     margin-top: 40px;
@@ -69,7 +69,7 @@ ul li:hover{
 
 }
 .dash input{
-    width: 55%;
+    width: 65%;
     height: 30px;
     font-size: 18px;
     font-weight: bold;
@@ -81,80 +81,129 @@ ul li:hover{
     top: 15%;
     cursor: pointer;
 }
-.addjob{
+.addEmployer{
     width: 70%;
     height: 450px;
     position: relative;
     top: 10%;
-    left: 10px;
+    left: 2%;
+
     padding: 10px;
     border-radius: 20px;
     background-image: linear-gradient(to right,rgb(167, 175, 199),rgb(100, 106, 107));
-  
 
 }
-.addjob table tr{
+.addEmployer table tr{
     background-color: white;
-    
-    
-    
     color: black;
 }
-.main input:hover{
-    opacity: .8;
-    border: 2px solid rgb(244, 244, 245);
+.addEmployer table {
+   width: 90%;
+   margin-left: -250px;
+}
+.addEmployer table tr td input{
+    height: 26px;
+    font-size: 20px;
+    width: 100%;
+}
+.addEmployer table tr th{
+    background-color: rgb(71, 71, 119);
+    height: 30px;
+    /* width: 25%; */
+    color: rgb(243, 243, 59);
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
 }
 .ipfeild td input{
     border: none;
     box-sizing: border-box;
-    padding: 8px 12px;
-    font-size: 20px;
-    width: 100%;
+    /* padding: 8px 12px; */
+    font-size: 23px;
+  
     text-align: center;
+    height: 100%;
+    border: none;
     
 
 }
-
-table{
-    width: 100%;
-    margin: auto;
+.ipfeild td input:hover{
+    background-color: aquamarine;
 }
-#adjob{
+
+#addemp{
     display: none;
 }
-#adjob:target{
+#addemp:target{
     display: block;
 }
-.viewAppl{
+.viewEmployer{
     width: 60%;
     height: 450px;
     position: relative;
     top: 10%;
     left: 2%;
-    padding: 20px;
+    padding: 10px;
     border-radius: 20px;
     background-image: linear-gradient(to right,rgb(167, 175, 199),rgb(100, 106, 107));
-  
+
 
 }
-.aplcn{
+.viewEmployer table {
+    width: 90%;
     position: relative;
-    top: 8%;
+    left: -15px;
 }
-.aplcn tr th{
-    border: 2px solid black;
+
+.viewEmployer table tr th{
+    background-color: rgb(71, 71, 119);
     height: 30px;
-    font-size: 20px;
+    width: 25%;
+    color: rgb(243, 243, 59);
+    font-size: 22px;
+    font-weight: bold;
     font-family: sans-serif;
-    color: blue;
-    background-color: whitesmoke;
+    position: relative;
+    top: 20px;
+    left: 10%;
 
 }
-
-#vwapp{
+#vwemp{
     display: none;
 }
-#vwapp:target{
+#vwemp:target{
     display: block;
 }
+.remEmployer{
+  width: 60%;
+    height: 450px;
+    position: relative;
+    top: 10%;
+    left: 2%;
+    padding: 10px;
+    border-radius: 20px;
+    background-image: linear-gradient(to right,rgb(167, 175, 199),rgb(100, 106, 107)); 
 
+
+}
+.remEmployer table th{
+    background-color: rgb(71, 71, 119);
+    height: 30px;
+    width: 25%;
+    color: rgb(243, 243, 59);
+    font-size: 22px;
+    font-weight: bold;
+    font-family: sans-serif;
+
+}
+table{
+    position: relative;
+    left:35%;
+    top:5%;
+}
+#rmemp{
+    display: none;
+}
+#rmemp:target{
+    display: block;
+}

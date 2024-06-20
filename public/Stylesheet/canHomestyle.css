@@ -48,13 +48,51 @@ ul li:hover{
     position: relative;
     margin-right: 40%;
 }
+.main1{
+    font-size: 30px;
+    background: linear-gradient(rgb(103, 104, 105), rgb(187, 199, 199));
+    text-align: center;
+    width: 100%;
+    position: relative;
+    top: -38px;
+
+}
+.hdding{
+    font-size: 45px;
+    position: relative;
+    top: -10px;
+    /* color: rgb(22, 22, 71); */
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: colorChange 2s infinite;
+
+}
+@keyframes colorChange {
+    0% {
+       color:  rgb(33, 33, 228);
+    }
+    25% {
+        color:rgb(54, 93, 219);
+    }
+    50% {
+        color: rgb(154, 154, 194);
+    }
+    75% {
+        color: rgb(64, 103, 211);
+    }
+    100% {
+        color: rgb(25, 38, 221);
+    } 
+}
+
+
+
 .maindiv{
     height: 700px;
     width: 60%;
     background-color: rgb(201, 200, 200);
     margin: auto;
     position: relative;
-    top: 50px;
+    top: -10px;
     display: flex;
     border-radius: 20px;
 }
@@ -133,13 +171,18 @@ ul li:hover{
     background-color: white;
     border: none;
     box-sizing: border-box;
-    padding: 8px 12px; 
+    /* padding: 8px 12px;  */
     font-size: 18px;
-    width: 30%;
+    width: 50%;
     text-align: center;
-    margin-left: 30%;
+   
     
 }
+ .new-row{
+    background-color: whitesmoke;
+    height: 25px;
+    width: 50%;
+ }
 
 .canHome{
     height: 320px;

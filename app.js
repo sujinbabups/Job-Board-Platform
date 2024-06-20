@@ -15,15 +15,18 @@ app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'public','jobBoardHome.html'))
 })
 
-app.get('/logDiv',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public','#logDiv'))
+app.get('/contact',(req,res)=>{
+    res.sendFile(path.join(__dirname,'public','/contact.html'))
 })
-app.get('/canReg',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public','#canReg'))
+app.get('/recruiters',(req,res)=>{
+    res.sendFile(path.join(__dirname,'public','/rectr.html'))
 })
 
 app.get('/employerhome',(req,res)=>{
     res.sendFile(path.join(__dirname,'public','employerHome.html'))
+})
+app.get('/admin',(req,res)=>{
+    res.sendFile(path.join(__dirname,'public','adminHome.html'))
 })
 
 

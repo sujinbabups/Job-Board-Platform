@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EntryLaunch-Home</title>
-    <link rel="stylesheet" href="/Stylesheet/Homepagestyle.css">
+    <link rel="stylesheet" href="Stylesheet/Homepagestyle.css">
 </head>
 
 <body>
     <div class="nav">
-        <div>
-            <img src="images/logo.png" alt="" style="width: 50px;">
-            <h3 style="font-size: 30px;position: relative;top: -5px;">EntryLaunch</h3>
+        <div style="position: relative;left: 2%;">
+            <!-- <img src="images/logo.png" alt="" style="width: 50px;"> -->
+            <h3 class="hdding">EntryLaunch</h3>
         </div>
         <div class="div2">
             <ul>
                 <a href="/"><li>Home</li></a>
-                <li>Recruiters</li>
-                <li>Contact</li>
+               <a href="/recruiters"><li>Recruiters</li></a>
+               <a href="/contact"><li>Contact</li></a>
             </ul>
         </div>
             <div class="list1">
@@ -25,13 +25,13 @@
                 <ul class="list2">
                     <a href="#logDiv"><li>Candidate</li></a>
                     <a href="#emplog"><li>Employer</li></a>
-                    <a href=""><li>Admin</li></a>
+                    <a href="#admlog"><li>Admin</li></a>
                 </ul>
             </div>
     </div>
 
     <div class="main1">
-        <h2 style="margin-left: 33%;">Start Your Career Journey With <br><span class="with">With us</span></h2>
+        <h2 style="margin-left: 33%;font-size: 46px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Start Your Career Journey With <br><span class="with">With us</span></h2>
     </div>
     <div class="cntrdiv">
         <div style="height: 66px;width: 87%;box-shadow: 2px 2px 70px 1px rgb(211, 221, 221);border-radius: 30px;" class="srchbtn">
@@ -50,6 +50,18 @@
             <label for="pass" class="inplabel">Password</label><br>
             <input type="password" name="" id="" class="inplog" placeholder="**********"><br><br>
            <a href="candHome.html"><input type="submit" value="Login" class="logbtn"></a>
+         </div>
+    </div>
+
+    <div class="logindiv" id="admlog">
+        <a href="#" class="close" id="closeButton" style="float: right;font-size: 40px;margin-top: -10px; margin-right: 19px;">&times;</a>
+        <h3 style="font-size: 30px;font-family: Verdana, Geneva, Tahoma, sans-serif;">Login</h3><br>
+        <div style="position: relative;top: 50px;margin-left: 30px;">
+            <label for="usename" class="inplabel">Email ID</label><br>
+            <input type="email" class="inplog" placeholder="EmailID"><br><br>
+            <label for="pass" class="inplabel">Password</label><br>
+            <input type="password" name="" id="" class="inplog" placeholder="**********"><br><br>
+           <a href="adminHome.html"><input type="submit" value="Login" class="logbtn"></a>
          </div>
     </div>
     <div class="logindiv" id="emplog">
