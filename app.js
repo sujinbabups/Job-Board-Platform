@@ -10,6 +10,8 @@ const Candidate_Reg = require('./Models/candidate_reg');
 const adminCollection=require('./Models/admin');
 
 const employers=require('./Models/Employer');
+
+const emp_list=require('./Models/employers_list')
 const { hash } = require('crypto');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -190,6 +192,39 @@ catch(error){
     }
 
 )
+
+//Adding an employer by admin
+
+app.post('/add-employer',async(req,res)=>{
+    try{
+        const {employer_id,co_name,co_type,place,email}=req.body;
+        const new_emp=new emp_list({
+            employer_id,
+            co_name,
+            co_type,
+            place,
+            email,
+        });
+        await new_emp.save();
+        res.status(201).json({message:"Added new employer"})
+
+    }catch(error){
+        console.log(error);
+        res.status(500).json({message:"Server error"})
+    }
+})
+
+//Viewing the employers by admin
+
+app.get('/get-employers', async (req, res) => {
+    try {
+        const employers = await emp_list.find();
+        res.status(200).json(employers);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 
 

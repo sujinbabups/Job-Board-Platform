@@ -21,7 +21,7 @@
         <div class="ml-10">
             <h3 class="hdding float-left mt-[30px] text-5xl animate-pulse text-black-900 font-bold">EntryLaunch</h3>
         </div>
-        <h2 class="text-5xl font-bold mt-6 text-white relative right-[140px]">Start Your <span class="text-blue-900"> Career</span> Journey <br>With us</h2>
+        <h2 class="text-5xl font-bold mt-6 text-white relative right-[140px]">Start Your <span class="text-blue-900 animate-pulse"> Career</span> Journey <br>With us</h2>
     </div>
 
   
@@ -32,7 +32,7 @@
                 <input type="submit" value="Add Employer" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[95%] hover:bg-purple-600 mt-[50%]">
             </a>
             <a href="#vwemp" class="block my-2">
-                <input type="submit" value="View Employers" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[95%] hover:bg-purple-600">
+                <input type="submit" onclick="viewEmployers()" value="View Employers" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[95%] hover:bg-purple-600">
             </a>
             <a href="#rmemp" class="block my-2">
                 <input type="submit" value="Remove Employers" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[95%] hover:bg-purple-600">
@@ -45,6 +45,7 @@
 
         <div class="addEmployer hidden bg-gradient-to-r from-blue-700 to-blue-300 h-[440px] mt-12 w-[70%] rounded-lg" id="addemp">
             <h2 class="text-2xl font-sans mt-8 ml-10 text-2xl text-white font-boldp   ">Add a New Employer</h2>
+            <form action="/add-employer" method="POST" id="addemprl">
             <table class="min-w-full mt-4  w-[90%] bg-white shadow-md rounded-lg text-xl font-bold">
                 <thead>
                     <tr>
@@ -57,26 +58,32 @@
                 </thead>
                 <tbody>
                     <tr class="ipfeild">
-                        <td class="p-2"><input type="text" name="" id="" required class="border p-2 rounded w-full"></td>
-                        <td class="p-2"><input type="text" name="" id="" required class="border p-2 rounded w-full"></td>
-                        <td class="p-2"><input type="text" name="" id="" required class="border p-2 rounded w-full"></td>
-                        <td class="p-2"><input type="text" name="" id="" required class="border p-2 rounded w-full"></td>
-                        <td class="p-2"><input type="text" name="" id="" required class="border p-2 rounded w-full"></td>
+                       
+                            <td class="p-2"><input type="text" name="employer_id" id="" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="co_name" id="" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="place" id="" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="co_type" id="" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="email" id="" required class="border p-2 rounded w-full"></td>
+                        
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="Add" class="bg-green-800 text-white py-2 px-4 rounded cursor-pointer float-right relative right-[40px] top-[10px]">
+            <input type="submit" value="Add" onclick="addEmployer()" class="bg-green-800 text-white py-2 px-4 rounded cursor-pointer float-right relative right-[40px] top-[10px]">
+            </form>
         </div>
 
         <div class="viewEmployer hidden" id="vwemp">
             <h2 class="text-2xl font-sans mt-8 ml-10 ">View Employers</h2>
-            <table class="mt-8 ml-[150px] w-90 mx-auto">
+            <table  class="mt-8 ml-[20%] w-90 mx-auto" >
                 <tr>
                     <th class="bg-purple-900 text-white h-12 w-[100px]">EmpID</th>
                     <th class="bg-purple-900 text-white h-12 w-[150px]">Co.Name</th>
                     <th class="bg-purple-900 text-white h-12 w-[130px]">Place</th>
                     <th class="bg-purple-900 text-white h-12 w-[170px]">No.of Placements</th>
                 </tr>
+                <tbody id="view_emp">
+
+                </tbody>
           
             </table>
         </div>
@@ -98,6 +105,66 @@
             </table>
         </div>
     </div>
+
+
+    <script>
+
+        async function addEmployer(){
+            try{
+                const response=await fetch('/add-employer');
+                if(!response.status==200)
+                {
+                    alert("failed to add")
+                    
+                }else{
+                    alert("Added new employer")
+                    document.getElementById('addemprl').reset()
+                    
+                    
+                }
+            }catch(error)
+            {
+                alert('An unexpected error occurred')
+            }
+
+        }
+        async function viewEmployers(){
+            try {
+        const response = await fetch('/get-employers', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const employers = await response.json();
+        // console.log(employers);
+
+        if (response.status === 200) {
+            const employersTable = document.getElementById('view_emp');
+            employersTable.innerHTML = ''; // Clear existing data
+
+            employers.forEach((employer, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${employer.employer_id}</td>
+                    <td>${employer.co_name}</td>
+                    
+                    <td>${employer.place}</td>
+                   
+                `;
+                employersTable.appendChild(row);
+                row.className="font-bold bg-white" 
+            });
+        } else {
+            alert("Failed to fetch employer details");
+        }
+    } catch (error) {
+        alert('An unexpected error occurred');
+    }
+
+        }
+    </script>
 
 </body>
 
