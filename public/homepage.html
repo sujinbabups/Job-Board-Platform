@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EntryLaunch-Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+ .group-hover\:block {
+            display: block;
+            transition: .8s ease-in;
+        }
+        .hidden-target{
+            display: none;
+        }
+        #logDiv:target,#emplog:target,#admlog:target,#canReg:target,#empreg:target
+        {
+            display: block;
+        }
+
+
+      
+    </style>
+</head>
+
+<body class="bg-cover bg-no-repeat b" style="background-image: url('./images/jobback.jpg')">
+    <div class="flex justify-between items-center bg-gradient-to-t from-gray-200 via-blue-400 to-blue-400 h-24 w-full px-4">
+        <div class="relative left-2">
+            <h3 class="text-4xl font-semibold font-sans animate-pulse">EntryLaunch</h3>
+        </div>
+        <div class="flex space-x-16 relative left-[-20px] ">
+            <ul class="flex space-x-16 cursor-pointer">
+                <li><a href="/" class="text-lg hover:text-white transition duration-1000">Home</a></li>
+                <li><a href="/recruiters" class="text-lg hover:text-white transition duration-1000">Recruiters</a></li>
+                <li><a href="/contact" class="text-lg hover:text-white transition duration-1000">Contact</a></li>
+            </ul>
+        </div>
+        <div class="relative right-20">
+            <div class="relative inline-block group">
+                <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-md  ">Login as</button>
+                <ul class="absolute right-0 w-40 bg-white shadow-lg rounded-md hidden group-hover:block z-40">
+                    <li><a href="#logDiv" class="block px-4 py-2 hover:bg-gray-600 hover:text-white ">Candidate</a></li>
+                    <li><a href="#emplog" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Employer</a></li>
+                    <li><a href="#admlog" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-gradient-to-t from-gray-700 to-gray-400 text-center h-[100px] relative top-[-25px]">
+        <h2 class="text-5xl font-bold mt-6 text-white  ">Start Your <span class="text-blue-900"> Career</span> Journey <br>With us</h2>
+    </div>
+    
+        <div class="h-[400px] w-3/4 max-w-3xl  p-4 bg-white rounded-2xl m-auto mt-[60px]">
+            <h3 class="text-3xl font-bold font-serif ml-[38%] ">Newly Added Job</h3>
+            <div class="h-[250px] w-3/4 bg-gradient-to-t from-gray-700 to-gray-400 m-auto rounded-lg" >
+
+            </div>
+       </div>
+   
+
+    <div id="logDiv" class="fixed top-[200px] right-[10px] bg-white w-1/4 p-6 rounded-lg shadow-lg hidden hidden-target">
+        <a href="#" class="float-right text-4xl mb-4">&times;</a>
+        <h3 class="text-2xl font-medium mb-4"> Candidate Login</h3>
+        <a href="#canReg" class="float-right text-blue-600 font-bold mb-4">Register</a>
+        <form class="mt-6" method="post" action="/canLogin">
+            <span id="message"></span>
+            <label for="username" class="block text-lg">Email ID</label>
+            <input type="email" name="email" id="user" class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="Email ID" required>
+            <label for="pass" class="block text-lg">Password</label>
+            <input type="password" name="password" id="pwd" class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="******" required>
+            <input type="submit" value="Login" onclick="candidateLogin()" class="w-full h-10 bg-blue-800 text-white font-bold rounded-lg mt-4 cursor-pointer hover:bg-blue-600">
+        </form>
+    </div>
+
+    <div id="admlog" class="fixed top-[200px] right-[10px] bg-white w-1/4 p-6 rounded-lg shadow-lg hidden">
+        <a href="#" class="float-right text-4xl mb-4">&times;</a>
+        <h3 class="text-2xl font-medium mb-4"> Admin Login</h3>
+        <form class="mt-6" method="POST" action="/admin">
+            <label for="username" class="block text-lg">Username</label>
+            <input type="text" name="username" id="uname" class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="username">
+            <label for="pass" class="block text-lg">Password</label>
+            <input type="password" name="password" id="pass" class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="**********">
+           <input type="submit" value="Login" onclick="adminLogin()" class="w-full h-10 bg-blue-800 text-white font-bold rounded-lg mt-4 cursor-pointer hover:bg-blue-600">
+        </form>
+    </div>
+
+    <div id="emplog" class="fixed top-[200px] right-[10px] bg-white w-1/4 p-6 rounded-lg shadow-lg hidden">
+        <a href="#" class="float-right text-4xl mb-4">&times;</a>
+        <a href="#empreg" class="float-right text-blue-600 font-bold mb-4">Register</a>
+        <h3 class="text-2xl font-medium mb-4">Employer Login</h3>
+        
+        <form class="mt-6" method="POST" action="/employer-login">
+            <label for="username" class="block text-lg">Email ID</label>
+            <input type="email" name="email" id="emp_uname" class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="Email ID">
+            <label for="pass" class="block text-lg">Password</label>
+            <input type="password" name="password" id="emp_pass" class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="**********">
+            <input type="submit" value="Login" onclick="employerLogin()" class="w-full h-10 bg-blue-800 text-white font-bold rounded-lg mt-4 cursor-pointer hover:bg-blue-600">
+        </form>
+    </div>
+
+    <div id="canReg" class="fixed top-[200px] right-[10px] bg-white w-[460px] p-6 rounded-lg shadow-lg hidden">
+        <a href="#" class="float-right text-4xl mb-4">&times;</a>
+        <h2 class="text-2xl font-medium mb-4">Candidate Registration</h2>
+        <span class="block text-right mb-4">Already Registered? <a href="#logDiv" class="text-blue-600 font-bold">Login</a></span>
+        <form class="mt-6" action="/can-reg" method="POST">
+            <label for="fname" class="block text-lg">First name</label>
+            <input type="text" name="fname" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="secname" class="block text-lg">Last name</label>
+            <input type="text" name="lname" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="email" class="block text-lg">Email</label>
+            <input type="email" name="email" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="pass" class="block text-lg">Password</label>
+            
+            <input type="password" id="pass1" onchange="passCheck()" name="password" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="repass" class="block text-lg">Re-enter password<span id="check" class="text-sm text-red-600 ml-[10px]"></span></label>
+            <input type="password" id="pass2" oninput ="passCheck()" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <input type="submit" value="Register" class="w-2/3 h-10 bg-blue-600 text-white font-bold rounded-lg mt-4 cursor-pointer" onclick="registration()">
+        </form>
+    </div>
+
+    <div id="empreg" class="fixed top-[200px] right-[10px] bg-white w-[460px] p-6 rounded-lg shadow-lg hidden">
+        <a href="#" class="float-right text-4xl mb-4">&times;</a>
+        <h2 class="text-2xl font-medium mb-4">Employer Registration</h2>
+        <span class="block text-right mb-4">Already Registered? <a href="#logDiv" class="text-blue-600 font-bold">Login</a></span>
+        <form class="mt-6" action="/emp-reg" method="post">
+            <label for="fname" class="block text-lg">Company name</label>
+            <input type="text" name="company_name" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="secname" class="block text-lg">Company type</label>
+            <input type="text" name="company_type" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="email" class="block text-lg">Email</label>
+            <input type="email" name="email" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="pass" class="block text-lg">Password</label>
+            <input type="password" name="password" id="pass11" required onchange="passCheck2()" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="repass" class="block text-lg">Re-enter password<span id="check2" class="text-sm text-red-600 ml-[10px]"></span></label>
+            <input type="password" id="pass22" oninput="passCheck2()" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" >
+            <input type="submit" value="Register" class="w-2/3 h-10 bg-blue-600 text-white font-bold rounded-lg mt-4 cursor-pointer">
+        </form>
+    </div>
+
+    <script>
+     
+        function passCheck()
+        {
+            p1=document.getElementById('pass1').value;
+            p2=document.getElementById('pass2').value;
+            msg=document.getElementById("check")
+       
+            if(p1!=p2)
+            {
+               msg.textContent ='password does not match'
+             }
+             else{
+                msg.textContent=''
+             }
+           
+         }
+
+         function passCheck2()
+        {
+            p1=document.getElementById('pass11').value;
+            p2=document.getElementById('pass22').value;
+
+            msg=document.getElementById('check2')
+            if(p1!=p2)
+            {
+               msg.textContent ='password does not match'
+             }
+             else{
+                msg.textContent=''
+             }
+           
+         }
+       
+
+         async function candidateLogin() {
+            const email = document.getElementById('user').value;
+            const password = document.getElementById('pwd').value;
+            // console.log(email);
+
+            try {
+                const response = await fetch('/canLogin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const result = await response.json();
+
+                if (response.status === 200) {
+                    alert('Login Success');
+                    window.location.href = '/candidate';
+                } else {
+                    alert(result.message); 
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An unexpected error occurred'); 
+            }
+        }
+
+        async function adminLogin(){
+            const username=document.getElementById('uname').value;
+            const password=document.getElementById('pass').value;
+            console.log(password);
+            try{
+                const response= await fetch('/admin',{
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+
+                });
+                const result=await response.json();
+                if(response.status===200){
+                    alert('Login success');
+                    window.location.href='/admin_page'
+                }else{
+                    alert(result.message)
+                    window.location.href='/'
+                }
+            }
+                
+                catch(error){
+                    console.log('Error:',error);
+                    alert('An unexpected error occurred')
+                }
+            
+
+        }
+
+        async function employerLogin(){
+            const email=document.getElementById('emp_uname').value;
+            const password=document.getElementById('emp_pass').value;
+            console.log(password);
+            try{
+                const response= await fetch('/employer-login',{
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+
+                });
+                const result=await response.json();
+                if(response.status===200){
+                    alert('Login success');
+                    window.location.href='/employer'
+                }else{
+                    alert(result.message)
+                    // window.location.href='/'
+                }
+            }
+                
+                catch(error){
+                    console.log('Error:',error);
+                    alert('An unexpected error occurred')
+                }
+
+        }
+
+            
+        
+    </script>
+</body>
+</html>
