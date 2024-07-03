@@ -4,14 +4,40 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
+
+// const express = require('express');
+const session = require('express-session');
+// const bcrypt = require('bcrypt');
+// const mongoose = require('mongoose');
+
+// const app = express();
+app.use(express.json());
+
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Set to true if using HTTPS
+}));
+
+// Define your mongoose model and connect to your database
+const Candidate_Reg = mongoose.model('Candidate_Reg', new mongoose.Schema({
+    email: String,
+    password: String,
+    name: String
+}));
+
+
 dotenv.config();
-const Candidate_Reg = require('./Models/candidate_reg'); 
+// const Candidate_Reg = require('./Models/candidate_reg');
 
-const adminCollection=require('./Models/admin');
+const adminCollection = require('./Models/admin');
 
-const employers=require('./Models/Employer');
+const employers = require('./Models/Employer');
 
-const emp_list=require('./Models/employers_list')
+const emp_list = require('./Models/employers_list')
+
+const job_list = require('./Models/joblist')
 const { hash } = require('crypto');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -58,7 +84,7 @@ app.get('/admin_page', (req, res) => {
 
 app.post('/can-reg', async (req, res) => {
     try {
-        const { fname,lname,email, password } = req.body;
+        const { fname, lname, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
         const newUser = new Candidate_Reg({
             fname,
@@ -93,7 +119,8 @@ app.post('/canLogin', async (req, res) => {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        res.status(200).json({ message: 'Login successful' });
+        req.session.userId = user._id;
+        res.status(200).json({ message: 'Login successful'});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
@@ -122,46 +149,46 @@ app.post('/canLogin', async (req, res) => {
 app.post('/admin', async (req, res) => {
     const { username, password } = req.body;
     try {
-        const admin=await adminCollection.findOne({username});
+        const admin = await adminCollection.findOne({ username });
         // console.log(admin);
-        
-if(!admin){
-    return res.status(400).json({message:'Invalid username or password'})
-}
 
-    const isMatch=await bcrypt.compare(password,admin.password)
-  
-    if(!isMatch){
-        return res.status(400).json({message:'Invalid username or password '})
-    }
-    res.status(200).json({message:"Login Success"})
-
-
-}
-catch(error){
-            console.log(error);
-            // res.status(500).json({message:'Server error'})
+        if (!admin) {
+            return res.status(400).json({ message: 'Invalid username or password' })
         }
+
+        const isMatch = await bcrypt.compare(password, admin.password)
+
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid username or password ' })
+        }
+        res.status(200).json({ message: "Login Success" })
+
+
     }
+    catch (error) {
+        console.log(error);
+        // res.status(500).json({message:'Server error'})
+    }
+}
 
 )
 
 //Employer Register
-app.post('/emp-reg',async(req,res)=>{
-    try{
-        const {company_name,company_type,email,password}=req.body;
-        const hashedPassword=await bcrypt.hash(password,10);
-        const emp=new employers({
+app.post('/emp-reg', async (req, res) => {
+    try {
+        const { company_name, company_type, email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const emp = new employers({
             company_name,
-            company_type,email,
-            password:hashedPassword,
+            company_type, email,
+            password: hashedPassword,
         })
         await emp.save();
-        res.status(201).json({message:'Registration Success'})
+        res.status(201).json({ message: 'Registration Success' })
     }
-    catch(error){
+    catch (error) {
         console.log(error);
-        res.status(500).json({message:'Server Error'})
+        res.status(500).json({ message: 'Server Error' })
     }
 })
 
@@ -169,36 +196,36 @@ app.post('/emp-reg',async(req,res)=>{
 app.post('/employer-login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const employer=await employers.findOne({email});
+        const employer = await employers.findOne({ email });
         console.log(employer);
-        
-if(!employer){
-    return res.status(400).json({message:'Invalid username or password'})
-}
 
-    const isMatch=await bcrypt.compare(password,employer.password)
-  
-    if(!isMatch){
-        return res.status(400).json({message:'Invalid username or password '})
-    }
-    res.status(200).json({message:"Login Success"})
-
-
-}
-catch(error){
-            console.log(error);
-            res.status(500).json({message:'Server error'})
+        if (!employer) {
+            return res.status(400).json({ message: 'Invalid username or password' })
         }
+
+        const isMatch = await bcrypt.compare(password, employer.password)
+
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid username or password ' })
+        }
+        res.status(200).json({ message: "Login Success" })
+
+
     }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server error' })
+    }
+}
 
 )
 
 //Adding an employer by admin
 
-app.post('/add-employer',async(req,res)=>{
-    try{
-        const {employer_id,co_name,co_type,place,email}=req.body;
-        const new_emp=new emp_list({
+app.post('/add-employer', async (req, res) => {
+    try {
+        const { employer_id, co_name, co_type, place, email } = req.body;
+        const new_emp = new emp_list({
             employer_id,
             co_name,
             co_type,
@@ -206,11 +233,11 @@ app.post('/add-employer',async(req,res)=>{
             email,
         });
         await new_emp.save();
-        res.status(201).json({message:"Added new employer"})
+        res.status(201).json({ message: "Added new employer" })
 
-    }catch(error){
+    } catch (error) {
         console.log(error);
-        res.status(500).json({message:"Server error"})
+        res.status(500).json({ message: "Server error" })
     }
 })
 
@@ -227,11 +254,113 @@ app.get('/get-employers', async (req, res) => {
 });
 
 
+//adding employee id to the select tag
+
+app.get('/employers', async (req, res) => {
+    try {
+        const employers = await emp_list.find({}, 'employer_id');
+        res.status(200).json(employers);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+//getting the selected id to the table 
+
+app.get('/employer/:id', async (req, res) => {
+    try {
+        const employer = await emp_list.findOne({ employer_id: req.params.id });
+        if (employer) {
+            res.status(200).json(employer);
+        } else {
+            res.status(404).json({ message: "Employer not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+//deleting the employers based on id by admin 
+app.delete('/delete/:id', async (req, res) => {
+    try {
+        const employerID = req.params.id;
+        const result = await emp_list.deleteOne({ employer_id: employerID });
+
+        if (result.deletedCount > 0) {
+            res.status(200).json({ message: "Employer deleted successfully" });
+        } else {
+            res.status(404).json({ message: "Employer not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+//Adding a job by employer
+
+app.post('/add-job', async (req, res) => {
+    try {
+        const { job_id, job_name, location, skills, description } = req.body;
+
+        // console.log(job_id);
+        const new_job = new job_list({
+            job_id,
+            job_name,
+            location,
+            skills,
+            description,
+        });
+
+        await new_job.save();
+        res.status(201).json({ message: "Added new job" });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 
 
+//getting the users name and password to users dashboard
 
-const port = 3004;
+app.get('/get-user', async (req, res) => {
+
+    if(!req.session.userId){
+        return res.status(401).json({message:'Not authenticated'})
+    }
+    try {
+        // Assuming you have a middleware to authenticate the user and set req.user
+        // const email = Candidate_Reg.email;  // or however you store the logged-in user ID
+        // console.log();
+        const user = await Candidate_Reg.findById(req.session.email, 'name email');  // Adjust as per your user model
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+//getting the details to home
+
+app.get('/get-jobs', async (req, res) => {
+    try {
+        const jobs = await job_list.find();
+        res.status(200).json(jobs);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+const port = 3001;
 app.listen(port, () => {
     console.log(`Server running on ${port}`);
 });

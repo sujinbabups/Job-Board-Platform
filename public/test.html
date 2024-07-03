@@ -1,47 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hover Dropdown</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        .group:hover .group-hover\:block {
-            display: block;
-        }
-        .hidden-target {
-            display: none;
-        }
-        #candidateDiv:target,
-        #employerDiv:target,
-        #adminDiv:target {
-            display: block;
-        }
-    </style>
-</head>
-<body class="flex items-center justify-center h-screen bg-gray-200">
-    <div class="relative inline-block group">
-        <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded-md">Login as</button>
-        <ul class="absolute right-0 w-40 bg-white shadow-lg rounded-md hidden group-hover:block">
-            <li><a href="#candidateDiv" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Candidate</a></li>
-            <li><a href="#employerDiv" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Employer</a></li>
-            <li><a href="#adminDiv" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Admin</a></li>
-        </ul>
-    </div>
-
-    <div id="candidateDiv" class="hidden-target mt-10 p-4 bg-white shadow-lg rounded-md">
-        <h2 class="text-2xl font-bold">Candidate Login</h2>
-        <!-- Candidate login form or content goes here -->
-    </div>
-    
-    <div id="employerDiv" class="hidden-target mt-10 p-4 bg-white shadow-lg rounded-md">
-        <h2 class="text-2xl font-bold">Employer Login</h2>
-        <!-- Employer login form or content goes here -->
-    </div>
-    
-    <div id="adminDiv" class="hidden-target mt-10 p-4 bg-white shadow-lg rounded-md">
-        <h2 class="text-2xl font-bold">Admin Login</h2>
-        <!-- Admin login form or content goes here -->
-    </div>
-</body>
-</html>
+<dialog open>
+    <p>Greetings, one and all!</p>
+    <form method="dialog">
+      <button>OK</button>
+    </form>
+  </dialog>
