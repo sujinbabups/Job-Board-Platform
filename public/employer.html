@@ -40,7 +40,7 @@
                 <input type="submit" value="View Applications"
                     class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[90%] hover:bg-purple-600 transition ease-in-out delay-1s">
             </a>
-            <a href="/" class="block my-2">
+            <a href="/logout" class="block my-2">
                 <input type="submit" value="Logout"
                     class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[90%] hover:bg-purple-600 transition ease-in-out delay-1s">
             </a>
@@ -132,6 +132,111 @@
             }
 
         }
+
+
+        //Display the applications
+        async function loadApplications() {
+    try {
+        const response = await fetch('/get-applications', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const applications = await response.json();
+
+        if (response.status === 200) {
+            const applicationTable = document.querySelector('#vwapp table');
+            applications.forEach((application, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${application.userName}</td>
+                    <td>${application.jobId}</td>
+                    <td>${application.skills}</td>
+                    <td>
+                        <button class="accept-btn bg-green-500 text-white px-4 py-2 rounded" data-app-id="${application._id}">Accept</button>
+                        <button class="reject-btn bg-red-500 text-white px-4 py-2 rounded ml-2" data-app-id="${application._id}">Reject</button>
+                    </td>
+                `;
+                applicationTable.appendChild(row);
+            });
+
+            document.querySelectorAll('.accept-btn').forEach(button => {
+                button.addEventListener('click', handleAccept);
+            });
+
+            document.querySelectorAll('.reject-btn').forEach(button => {
+                button.addEventListener('click', handleReject);
+            });
+        } else {
+            alert("Failed to fetch applications");
+        }
+    } catch (error) {
+        alert('An unexpected error occurred');
+    }
+}
+
+async function handleAccept(event) {
+    const button = event.target;
+    const appId = button.getAttribute('data-app-id');
+
+    try {
+        const response = await fetch('/update-application-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                appId,
+                status: 'accepted',
+            }),
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200) {
+            alert('Application accepted');
+
+        } else {
+            alert('Failed to update application status');
+        }
+    } catch (error) {
+        alert('An unexpected error occurred');
+    }
+}
+
+async function handleReject(event) {
+    const button = event.target;
+    const appId = button.getAttribute('data-app-id');
+
+    try {
+        const response = await fetch('/update-application-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                appId,
+                status: 'rejected',
+            }),
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200) {
+            alert('Application rejected');
+            
+        } else {
+            alert('Failed to update application status');
+        }
+    } catch (error) {
+        alert('An unexpected error occurred');
+    }
+}
+
+        
     </script>
 
 </body>

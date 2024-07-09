@@ -4,40 +4,31 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
-// const express = require('express');
-const session = require('express-session');
-// const bcrypt = require('bcrypt');
-// const mongoose = require('mongoose');
-
-// const app = express();
 app.use(express.json());
-
-app.use(session({
-    secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using HTTPS
-}));
-
-// Define your mongoose model and connect to your database
-const Candidate_Reg = mongoose.model('Candidate_Reg', new mongoose.Schema({
-    email: String,
-    password: String,
-    name: String
-}));
-
-
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 dotenv.config();
-// const Candidate_Reg = require('./Models/candidate_reg');
+
+const { check, validationResult } = require('express-validator');
+
+const Candidate_Reg = require('./Models/candidate_reg');
 
 const adminCollection = require('./Models/admin');
 
 const employers = require('./Models/Employer');
 
-const emp_list = require('./Models/employers_list')
 
 const job_list = require('./Models/joblist')
+
+const Application = require('./Models/Applications');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const { hash } = require('crypto');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -101,13 +92,25 @@ app.post('/can-reg', async (req, res) => {
 });
 
 //user authentication
+function isAuthenticated(req, res, next) {
+    const token = req.cookies.AuthToken;
+    if (!token) {
+        return res.redirect('/canLogin');
+    }
+    try {
+        const decoded = jwt.verify(token, "your-secret-key");
+        req.user = decoded;
+        next();
+    } catch (err) {
+        res.redirect('/canLogin');
+    }
+}
 
 app.post('/canLogin', async (req, res) => {
     const { email, password } = req.body;
 
     try {
         const user = await Candidate_Reg.findOne({ email });
-        // console.log(user);
 
         if (!user) {
             return res.status(400).json({ message: 'Invalid username or password' });
@@ -119,13 +122,40 @@ app.post('/canLogin', async (req, res) => {
             return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        req.session.userId = user._id;
-        res.status(200).json({ message: 'Login successful'});
+        const token = jwt.sign(
+            { userId: user._id, userType: user.userType },
+            "your-secret-key",
+            { expiresIn: "1h" }
+        );
+
+        res.cookie("AuthToken", token, { httpOnly: true });
+        res.json({
+            status: true,
+            message: "login success",
+            token,
+            userType: user.userType,
+            redirect: '/candidate'
+        });
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
+
+
+app.get('/candidate', isAuthenticated, (req, res) => {
+    res.send('Welcome to the candidate page');
+});
+
+
+app.get("/logout", (req, res) => {
+    res.clearCookie("AuthToken", { httpOnly: true });
+    res.status(200).redirect('/');
+});
+
 
 //Admin Register 
 
@@ -170,62 +200,75 @@ app.post('/admin', async (req, res) => {
         // res.status(500).json({message:'Server error'})
     }
 }
-
 )
 
-//Employer Register
+// Employer Register
 app.post('/emp-reg', async (req, res) => {
     try {
-        const { company_name, company_type, email, password } = req.body;
+        const { co_name, co_type, place, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const emp = new employers({
-            company_name,
-            company_type, email,
+            co_name,
+            co_type,
+            place,
+            email,
             password: hashedPassword,
-        })
+        });
         await emp.save();
-        res.status(201).json({ message: 'Registration Success' })
-    }
-    catch (error) {
+        res.status(201).json({ message: 'Registration Success' });
+    } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'Server Error' })
+        res.status(500).json({ message: 'Server Error' });
     }
-})
+});
+
+
+
+
+
 
 //Employer Login 
 app.post('/employer-login', async (req, res) => {
     const { email, password } = req.body;
+
     try {
         const employer = await employers.findOne({ email });
-        console.log(employer);
 
         if (!employer) {
-            return res.status(400).json({ message: 'Invalid username or password' })
+            return res.status(400).json({ message: 'Invalid username or password' });
         }
 
-        const isMatch = await bcrypt.compare(password, employer.password)
+        const isMatch = await bcrypt.compare(password, employer.password);
 
         if (!isMatch) {
-            return res.status(400).json({ message: 'Invalid username or password ' })
+            return res.status(400).json({ message: 'Invalid username or password' });
         }
-        res.status(200).json({ message: "Login Success" })
 
+        const token = jwt.sign(
+            { userId: employer._id, email: employer.email },
+            "your-secret-key",
+            { expiresIn: '1h' }
+        );
 
-    }
-    catch (error) {
+        res.status(200).json({
+            message: "Login Success",
+            
+            token
+        });
+
+    } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'Server error' })
+        res.status(500).json({ message: 'Server error' });
     }
-}
+});
 
-)
 
 //Adding an employer by admin
 
 app.post('/add-employer', async (req, res) => {
     try {
         const { employer_id, co_name, co_type, place, email } = req.body;
-        const new_emp = new emp_list({
+        const new_emp = new employers({
             employer_id,
             co_name,
             co_type,
@@ -233,20 +276,19 @@ app.post('/add-employer', async (req, res) => {
             email,
         });
         await new_emp.save();
-        res.status(201).json({ message: "Added new employer" })
-
+        res.status(201).json({ message: "Added new employer" });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Server error" })
+        // res.status(500).json({ message: "Server error" });
     }
-})
+});
 
 //Viewing the employers by admin
 
 app.get('/get-employers', async (req, res) => {
     try {
-        const employers = await emp_list.find();
-        res.status(200).json(employers);
+        const employer = await employers.find();
+        res.status(200).json(employer);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Server error" });
@@ -258,8 +300,8 @@ app.get('/get-employers', async (req, res) => {
 
 app.get('/employers', async (req, res) => {
     try {
-        const employers = await emp_list.find({}, 'employer_id');
-        res.status(200).json(employers);
+        const employer = await employers.find({}, 'employer_id');
+        res.status(200).json(employer);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
@@ -270,7 +312,7 @@ app.get('/employers', async (req, res) => {
 
 app.get('/employer/:id', async (req, res) => {
     try {
-        const employer = await emp_list.findOne({ employer_id: req.params.id });
+        const employer = await employers.findOne({ employer_id: req.params.id });
         if (employer) {
             res.status(200).json(employer);
         } else {
@@ -286,7 +328,7 @@ app.get('/employer/:id', async (req, res) => {
 app.delete('/delete/:id', async (req, res) => {
     try {
         const employerID = req.params.id;
-        const result = await emp_list.deleteOne({ employer_id: employerID });
+        const result = await employers.deleteOne({ employer_id: employerID });
 
         if (result.deletedCount > 0) {
             res.status(200).json({ message: "Employer deleted successfully" });
@@ -327,26 +369,7 @@ app.post('/add-job', async (req, res) => {
 
 //getting the users name and password to users dashboard
 
-app.get('/get-user', async (req, res) => {
 
-    if(!req.session.userId){
-        return res.status(401).json({message:'Not authenticated'})
-    }
-    try {
-        // Assuming you have a middleware to authenticate the user and set req.user
-        // const email = Candidate_Reg.email;  // or however you store the logged-in user ID
-        // console.log();
-        const user = await Candidate_Reg.findById(req.session.email, 'name email');  // Adjust as per your user model
-        if (user) {
-            res.status(200).json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
 
 //getting the details to home
 
@@ -360,7 +383,56 @@ app.get('/get-jobs', async (req, res) => {
     }
 });
 
-const port = 3001;
+
+// Apply for a Job
+app.post('/apply-job', async (req, res) => {
+    const { jobId, userName } = req.body;
+    console.log('Applying for Job ID:', jobId);
+    console.log(userName);
+
+    try {
+        const authHeader = req.headers['AuthToken'];
+        if (!authHeader) {
+            console.error('No authorization header provided');
+            return res.status(401).json({ message: 'No token provided' });
+        }
+
+        const token = authHeader.split(' ')[1];
+        if (!token) {
+            console.error('No token provided');
+            return res.status(401).json({ message: 'No token provided' });
+        }
+
+        const decoded = jwt.verify(token, "your-secret-key");
+        const user = await Candidate_Reg.findById(decoded.userId);
+
+        if (!user) {
+            console.error('User not found');
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        console.log('User Information:', user);
+
+        const application = new Application({
+            userId: user._id,
+            userName: user.name,
+            jobId,
+            skills: user.skills,
+            status: 'pending',
+        });
+
+        await application.save();
+
+        res.json({ message: 'Application submitted successfully' });
+    } catch (error) {
+        console.error('Error during application submission:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+
+const port = 3000;
 app.listen(port, () => {
     console.log(`Server running on ${port}`);
 });

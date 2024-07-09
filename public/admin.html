@@ -37,7 +37,7 @@
             <a href="#rmemp" class="block my-2">
                 <input type="submit" value="Remove Employers" onclick="loadEmployerIDs()" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[95%] hover:bg-purple-600">
             </a>
-            <a href="/" class="block my-2">
+            <a href="/logout" class="block my-2">
                 <input type="submit" value="Logout" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-40 hover:bg-purple-600 w-[95%]">
             </a>
         </div>
@@ -59,11 +59,11 @@
                 <tbody>
                     <tr class="ipfeild">
                        
-                            <td class="p-2"><input type="text" name="employer_id" id="" required class="border p-2 rounded w-full"></td>
-                            <td class="p-2"><input type="text" name="co_name" id="" required class="border p-2 rounded w-full"></td>
-                            <td class="p-2"><input type="text" name="place" id="" required class="border p-2 rounded w-full"></td>
-                            <td class="p-2"><input type="text" name="co_type" id="" required class="border p-2 rounded w-full"></td>
-                            <td class="p-2"><input type="text" name="email" id="" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="employer_id" id="employer_id" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="co_name" id="co_name" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="place" id="place" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="co_type" id="co_type" required class="border p-2 rounded w-full"></td>
+                            <td class="p-2"><input type="text" name="email" id="email" required class="border p-2 rounded w-full"></td>
                         
                     </tr>
                 </tbody>
@@ -114,25 +114,35 @@
 
     <script>
 
-        async function addEmployer(){
-            try{
-                const response=await fetch('/add-employer');
-                if(!response.status==200)
-                {
-                    alert("failed to add")
-                    
-                }else{
-                    alert("Added new employer")
-                    document.getElementById('addemprl').reset()
-                    
-                    
-                }
-            }catch(error)
-            {
-                alert('An unexpected error occurred')
-            }
+async function addEmployer() {
+    const employerData = {
+        employer_id: document.getElementById('employer_id').value,
+        co_name: document.getElementById('co_name').value,
+        co_type: document.getElementById('co_type').value,
+        place: document.getElementById('place').value,
+        email: document.getElementById('email').value
+    };
 
+    try {
+        const response = await fetch('/add-employer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(employerData)
+        });
+
+        if (response.status !== 201) {
+            alert("Failed to add");
+        } else {
+            alert("Added new employer");
+            document.getElementById('addemprl').reset();
         }
+    } catch (error) {
+        alert('An unexpected error occurred');
+    }
+}
+
         async function viewEmployers(){
             try {
         const response = await fetch('/get-employers', {

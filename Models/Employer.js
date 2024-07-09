@@ -1,15 +1,14 @@
-const {Schema,model}= require('mongoose')
-const { type } = require('os')
+const mongoose = require('mongoose');
 
-const demo=new Schema({
-    company_name:{type:String,required:true},
-    company_type:{type:String,required:true},
-    email:{type:String,required:true},
-    password:{type:String,required:true},
+const employerSchema = new mongoose.Schema({
+    co_name: { type: String, required: true },
+    co_type: { type: String, required: true },
+    place: { type: String, required: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+});
 
+const Employer = mongoose.model('Employer', employerSchema);
 
-})
+module.exports = Employer;
 
-
-const sample=model('employers',demo)
-module.exports=sample;

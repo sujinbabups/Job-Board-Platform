@@ -53,18 +53,19 @@
 
     <div class="bg-gradient-to-t from-gray-700 to-gray-400 text-center h-[100px] relative top-[-25px]">
         <h2 class="text-5xl font-bold mt-6 text-white  ">Start Your <span class="text-blue-900"> Career</span> Journey
-            <br>With us</h2>
+            <br>With us
+        </h2>
     </div>
 
     <div class="h-[400px] w-3/4 max-w-3xl  p-4 bg-white rounded-2xl m-auto mt-[60px]">
         <h3 class="text-3xl font-bold font-serif ml-[38%] ">Newly Added Jobs</h3>
-        <div class="h-[250px] w-3/4 bg-gradient-to-t from-gray-700 to-gray-400 mx-auto rounded-lg">
-            <table class="mx-auto">
-                <tr class="bg-blue-500 h-10 border-separate border-spacing-2">
-                    <th class="border border-white">Job</th>
-                    <th class="border border-white">Location</th>
-                    <th class="border border-white">Skills</th>
-                    <th class="border border-white">Description</th>
+        <div class="h-[250px] w-3/4 bg-gradient-to-t from-gray-700 to-gray-400 mx-auto rounded-lg overflow-y-auto h-32">
+            <table class="mx-auto relative top-[20px]">
+                <tr class="bg-blue-500 h-10 ">
+                    <th class="border-2">Job</th>
+                    <th class="border-2">Location</th>
+                    <th class="border-2">Skills</th>
+                    <th class="border-2">Description</th>
                 </tr>
                 <tbody id="jobtable"></tbody>
             </table>
@@ -78,17 +79,17 @@
         <a href="#" class="float-right text-4xl mb-4">&times;</a>
         <h3 class="text-2xl font-medium mb-4"> Candidate Login</h3>
         <a href="#canReg" class="float-right text-blue-600 font-bold mb-4">Register</a>
-        <form class="mt-6" method="post" action="/canLogin">
+        <form id="loginButton" class="mt-6" method="post" action="/canLogin" onsubmit="candidateLogin(event)">
             <span id="message"></span>
             <label for="username" class="block text-lg">Email ID</label>
-            <input type="email" name="email" id="user"
+            <input type="email" name="email" id="user_email"
                 class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="Email ID"
                 required>
             <label for="pass" class="block text-lg">Password</label>
-            <input type="password" name="password" id="pwd"
+            <input type="password" name="password" id="user_pass"
                 class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="******"
                 required>
-            <input type="submit" value="Login" onclick="candidateLogin()"
+            <input type="submit" value="Login"
                 class="w-full h-10 bg-blue-800 text-white font-bold rounded-lg mt-4 cursor-pointer hover:bg-blue-600">
         </form>
     </div>
@@ -110,20 +111,21 @@
 
     <div id="emplog" class="fixed top-[200px] right-[10px] bg-white w-1/4 p-6 rounded-lg shadow-lg hidden">
         <a href="#" class="float-right text-4xl mb-4">&times;</a>
-        <!-- <a href="#empreg" class="float-right text-blue-600 font-bold mb-4">Register</a> -->
+        <a href="#empreg" class="float-right text-blue-600 font-bold mb-4">Register</a>
         <h3 class="text-2xl font-medium mb-4">Employer Login</h3>
-
-        <form class="mt-6" method="POST" action="/employer-login">
+    
+        <form class="mt-6" method="POST" onsubmit="employerLogin(event)">
             <label for="username" class="block text-lg">Email ID</label>
             <input type="email" name="email" id="emp_uname"
                 class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="Email ID">
             <label for="pass" class="block text-lg">Password</label>
             <input type="password" name="password" id="emp_pass"
                 class="block w-full h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" placeholder="**********">
-            <input type="submit" value="Login" onclick="employerLogin()"
+            <input type="submit" value="Login" 
                 class="w-full h-10 bg-blue-800 text-white font-bold rounded-lg mt-4 cursor-pointer hover:bg-blue-600">
         </form>
     </div>
+    
 
     <div id="canReg" class="fixed top-[200px] right-[10px] bg-white w-[460px] p-6 rounded-lg shadow-lg hidden">
         <a href="#" class="float-right text-4xl mb-4">&times;</a>
@@ -154,24 +156,27 @@
         </form>
     </div>
 
-    <!-- <div id="empreg" class="fixed top-[200px] right-[10px] bg-white w-[460px] p-6 rounded-lg shadow-lg hidden">
+    <div id="empreg" class="fixed top-[200px] right-[10px] bg-white w-[460px] p-6 rounded-lg shadow-lg hidden">
         <a href="#" class="float-right text-4xl mb-4">&times;</a>
         <h2 class="text-2xl font-medium mb-4">Employer Registration</h2>
         <span class="block text-right mb-4">Already Registered? <a href="#logDiv" class="text-blue-600 font-bold">Login</a></span>
-        <form class="mt-6" action="/emp-reg" method="post">
-            <label for="fname" class="block text-lg">Company name</label>
-            <input type="text" name="company_name" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
-            <label for="secname" class="block text-lg">Company type</label>
-            <input type="text" name="company_type" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+        <form class="mt-6" onsubmit="registerEmployer(event)">
+            <label for="co_name" class="block text-lg">Company name</label>
+            <input type="text" name="co_name" id="co_name" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="co_type" class="block text-lg">Company type</label>
+            <input type="text" name="co_type" id="co_type" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="place" class="block text-lg">Place</label>
+            <input type="text" name="place" id="place" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
             <label for="email" class="block text-lg">Email</label>
-            <input type="email" name="email" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
-            <label for="pass" class="block text-lg">Password</label>
-            <input type="password" name="password" id="pass11" required onchange="passCheck2()" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
-            <label for="repass" class="block text-lg">Re-enter password<span id="check2" class="text-sm text-red-600 ml-[10px]"></span></label>
-            <input type="password" id="pass22" oninput="passCheck2()" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4" >
+            <input type="email" name="email" id="email" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="password" class="block text-lg">Password</label>
+            <input type="password" name="password" id="password" required onchange="passCheck2()" class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
+            <label for="repassword" class="block text-lg">Re-enter password<span id="check2" class="text-sm text-red-600 ml-[10px]"></span></label>
+            <input type="password" id="repassword" oninput="passCheck2()" required class="block w-2/3 h-10 bg-gray-300 rounded-lg text-center text-lg mt-2 mb-4">
             <input type="submit" value="Register" class="w-2/3 h-10 bg-blue-600 text-white font-bold rounded-lg mt-4 cursor-pointer">
         </form>
-    </div> -->
+    </div>
+    
 
     <script>
 
@@ -205,8 +210,8 @@
 
 
         async function candidateLogin() {
-            const email = document.getElementById('user').value;
-            const password = document.getElementById('pwd').value;
+            const email = document.getElementById('user_email').value;
+            const password = document.getElementById('user_pass').value;
             // console.log(email);
 
             try {
@@ -219,17 +224,105 @@
                 });
 
                 const result = await response.json();
+      
 
                 if (response.status === 200) {
                     alert('Login Success');
-                    localStorage.setItem('user', JSON.stringify(result.user));
-                    window.location.href = '/candidate';
+                    window.location.href = result.redirect
+                
+
                 } else {
                     alert(result.message);
                 }
+
             } catch (error) {
                 console.error('Error:', error);
                 alert('An unexpected error occurred');
+            }
+        }
+
+
+    //Register Employer
+    async function registerEmployer(event) {
+    event.preventDefault(); 
+
+
+    const co_name = document.getElementById('co_name').value;
+    const co_type = document.getElementById('co_type').value;
+    const place = document.getElementById('place').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const registrationData = { co_name, co_type, place, email, password };
+
+    try {
+        const response = await fetch('/emp-reg', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registrationData)
+        });
+
+        const result = await response.json();
+
+        if (response.status !== 201) {
+            alert(result.message);
+        } else {
+            alert("Registration Success");
+            document.querySelector('form').reset();
+        }
+    } catch (error) {
+        alert('An unexpected error occurred');
+    }
+}
+
+
+
+//Employer Login
+async function employerLogin(event) {
+    event.preventDefault(); 
+
+    const email = document.getElementById('emp_uname').value;
+    const password = document.getElementById('emp_pass').value;
+
+    const loginData = { email, password };
+
+    try {
+        const response = await fetch('/employer-login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData)
+        });
+
+        const result = await response.json();
+
+        if (response.status !== 200) {
+            alert(result.message);
+        } else {
+            alert("Login Success");
+            window.location.href = '/employer';
+        }
+    } catch (error) {
+        alert('An unexpected error occurred');
+    }
+}
+
+        async function fetchUserInfo() {
+            try {
+                const response = await fetch('/getUserInfo', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                const data = await response.json();
+                document.getElementById('can-name').textContent = data.name;
+            } catch (error) {
+                console.error('Error:', error);
             }
         }
 
@@ -264,35 +357,6 @@
 
         }
 
-        async function employerLogin() {
-            const email = document.getElementById('emp_uname').value;
-            const password = document.getElementById('emp_pass').value;
-            console.log(password);
-            try {
-                const response = await fetch('/employer-login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password }),
-
-                });
-                const result = await response.json();
-                if (response.status === 200) {
-                    alert('Login success');
-                    window.location.href = '/employer'
-                } else {
-                    alert(result.message)
-                    // window.location.href='/'
-                }
-            }
-
-            catch (error) {
-                console.log('Error:', error);
-                alert('An unexpected error occurred')
-            }
-
-        }
 
 
         //load the added jobs to the home page
@@ -338,6 +402,14 @@
 
         }
         document.addEventListener('DOMContentLoaded', loadToHome);
+
+
+        document.getElementById('loginButton').addEventListener('click', function() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    
+});
 
 
 

@@ -8,27 +8,26 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-       .new-row{
-        background-color: whitesmoke;
-        height: 25px;
-   
-       
-       }
-       #profile:target,#cnhome:target,#srchdiv:target,#svjob:target,#appli:target{
-        display: block;
-       }
-       /* #profile:target,#srchdiv:target,#svjob:target,#appli:target {
-        display: none;
-       } */
-  
+        .new-row {
+            background-color: whitesmoke;
+            height: 25px;
+        }
 
+        #profile:target,
+        #cnhome:target,
+        #srchdiv:target,
+        #svjob:target,
+        #appli:target {
+            display: block;
+        }
+
+        .hidden-section {
+            display: none;
+        }
     </style>
 </head>
 
 <body class="bg-cover bg-no-repeat bg-center" style="background-image: url(../images/jobback.jpg);">
-   
-
-  
     <div class="main1 bg-gradient-to-r from-gray-700 to-gray-400 text-center h-[100px] mt-[-25px]">
         <div class="ml-10">
             <h3 class="hdding float-left mt-[30px] text-5xl animate-pulse text-blue-200 font-bold">EntryLaunch</h3>
@@ -36,45 +35,40 @@
         <h2 class="text-5xl font-bold mt-6 text-white relative right-[140px]">Start Your <span class="text-blue-900"> Career</span> Journey <br>With us</h2>
     </div>
 
-    
     <div class="maindiv h-[600px] w-[70%] bg-gray-300 mx-auto mt-10 rounded-lg flex">
-
-        <div class="dashb bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg ml-[3%]  relative top-[5%] w-[25%] h-[540px] ">
+        <div class="dashb bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg ml-[3%] relative top-[5%] w-[25%] h-[540px] ">
             <h3 class="text-xl font-semibold ml-[38%]">Name</h3>
-            <!-- <span class="block mb-4">Degree</span> -->
-            <a href="#cnhome" class="block my-4"> 
+            <a href="#cnhome" class="block my-4">
                 <input type="submit" value="My Home" onclick="loadToCandidateHome()" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600">
             </a>
-            <hr class="my-6 border-t border-blue-400">  
+            <hr class="my-6 border-t border-blue-400">
             <a href="#profile" class="block my-4">
                 <input type="submit" value="Profile" onclick="loadDetails()" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600">
             </a>
-            
-            
-            <a href="#srchdiv" class="block my-4">
+            <!-- <a href="#srchdiv" class="block my-4">
                 <input type="submit" value="Search Jobs" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600">
             </a>
             <a href="#svjob" class="block my-4">
-                <input type="submit" value="Saved Jobs" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600">
+                <input type="submit" value="Saved Jobs" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600"> -->
             </a>
             <a href="#appli" class="block my-4">
                 <input type="submit" value="My Applications" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600">
             </a>
-            <a href="/" class="block my-4">
-                <input type="submit" value="Logout" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600">
+            <a href="/logout" class="block my-4">
+                <input type="submit" id="logoutButton" value="Logout" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer w-[65%] ml-[15%] hover:bg-purple-600">
             </a>
         </div>
 
-     <!-- profile -->
-        <div class="bg-gradient-to-r from-blue-700 to-blue-300 text-white p-8 rounded-lg  relative top-[5%] ml-8 h-[540px] w-[65%] hidden" id="profile">
+        
+        <div class="bg-gradient-to-r from-blue-700 to-blue-300 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden-section" id="profile">
             <h2 class="text-3xl font-bold mb-6">Complete Your profile</h2>
             <div>
                 <label for="name" class="block mb-2">Name :</label>
                 <input type="text" name="name" id="name" class="block w-2/5 px-2 py-1 border rounded mb-4 text-black">
                 <label for="email" class="block mb-2">Email :</label>
-                <input type="email" name="email" id="email" class="block w-2/5 px-2 py-1 border rounded mb-4">
+                <input type="email" name="email" id="email" class="block w-2/5 px-2 py-1 border rounded mb-4 text-black">
                 <label for="dob" class="block mb-2">D.o.b :</label>
-                <input type="date" name="dob" id="dob" class="block w-2/5 px-2 py-1 border rounded mb-4">
+                <input type="date" name="dob" id="dob" class="block w-2/5 px-2 py-1 border rounded mb-4 text-black">
                 <label for="edu" class="block mb-2">Education :</label>
                 <table id="eduTable" class="min-w-full mb-4 bg-white shadow-md rounded-lg">
                     <thead>
@@ -84,7 +78,7 @@
                             <th class="px-4 py-2 border">Year of Passing</th>
                             <th class="px-4 py-2 border">Grade/Percentage</th>
                             <th class="px-4 py-2 border">
-                                <input type="submit" value="Add" class="bg-blue-900 text-white py-2 px-4 rounded cursor-pointer" onclick="">
+                                <input type="submit" value="Add" class="bg-blue-900 text-white py-2 px-4 rounded cursor-pointer">
                             </th>
                         </tr>
                         <tr class="bg-gray-200 text-black text-xl">
@@ -92,141 +86,77 @@
                             <td><input type="text" class="px-4 py-2 border w-[100%]"></td>
                             <td><input type="text" class="px-4 py-2 border w-[100%] "></td>
                             <td><input type="text" class="px-4 py-2 border w-[100%] "></td>
-                            
                         </tr>
                     </thead>
                     <tbody>
-                    
                     </tbody>
                 </table>
                 <input type="submit" value="Save" class="bg-green-600 text-white py-2 px-4 rounded cursor-pointer mr-4">
                 <input type="reset" value="Reset" class="bg-blue-800 text-white py-2 px-4 rounded cursor-pointer">
             </div>
-        </div>  
+        </div>
 
-     
-        <div class="canHome bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden" id="cnhome">
-            <h2 class="text-3xl font-bold mb-6">Hi <span class="text-blue-900">name</span></h2>
-            <div class="bg-white h-[400px] w-[90%] ">
-                <table class="w-[80%] text-black mx-auto relative top-[20%]"> 
-                    <tr class="bg-gray-600">
-                        <th>Job Id</th>
-                        <th>Job Name</th>
-                        <th>Location</th>
-                        <th>Skills</th>
-                        <th>Description</th>
-                    </tr>
+        
+        <div class="canHome bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden-section" id="cnhome">
+            <h2 class="text-3xl font-bold mb-6">Hi <span class="text-blue-900" id="can-name">name</span></h2>
+            <div class="bg-white h-[400px] w-[90%]">
+                <table class="w-[80%] text-black mx-auto relative top-[20%]">
+                    <thead>
+                        <tr class="bg-gray-600">
+                            <th>Id</th>
+                            <th>Job</th>
+                            <th>Location</th>
+                            <th>Skills</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
                     <tbody id="jobtable">
-
-
                     </tbody>
-
                 </table>
             </div>
         </div>
 
-        <div class="srfchJob bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden" id="srchdiv">
+       
+        <div class="srfchJob bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden-section" id="srchdiv">
             <h3 class="text-3xl font-bold mb-6">Search Jobs</h3>
             <label for="search" class="block mb-2">Search here :</label>
-            <input type="text" name="" id="" placeholder="Enter job id/role" class="block w-2/5 px-2 py-1 border rounded mb-4">
+            <input type="text" name="search" id="search" placeholder="Enter job id/role" class="block w-2/5 px-2 py-1 border rounded mb-4">
             <input type="submit" value="Search" class="bg-purple-900 text-white py-2 px-4 rounded cursor-pointer">
         </div>
 
-        <div class="savedJob bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden" id="svjob">
+       
+        <div class="savedJob bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden-section" id="svjob">
             <h3 class="text-3xl font-bold mb-6">Saved Jobs</h3>
-      
         </div>
 
-        <div class="myappl bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden" id="appli">
+  
+        <div class="myappl bg-gradient-to-r from-blue-300 to-blue-700 text-white p-8 rounded-lg relative top-[5%] ml-8 h-[540px] w-[65%] hidden-section" id="appli">
             <h3 class="text-3xl font-bold mb-6">Your Applications</h3>
-        
         </div>
     </div>
 
-
-    
     <script>
-        // function profileTable() {
-        //     var table = document.getElementById("eduTable");
-        //     const newRow = table.insertRow();
-        //     // newRow.className = 'w-[80px] h-[24px] bg-gray-200';
-            
-  
-        //     const cell1 = newRow.insertCell();
-        //     const cell2 = newRow.insertCell();
-        //     const cell3 = newRow.insertCell();
-        //     const cell4 = newRow.insertCell();
+        async function loadDetails() {
+            try {
+                const response = await fetch('/get-jobs', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-        //     const input1=document.createElement('input');
-        //     input1.type='number';
-        //     input1.className="w-[80px] h-[35px] p-[10px] bg-gray-200 text-black text-xl "
-        //     cell1.appendChild(input1);
-
-        //     const input2 = document.createElement('input');
-        //     input2.type = 'text';
-        //     input2.className = 'w-[180px] h-[35px] p-[10px] text-black text-xl';
-        //     cell2.appendChild(input2);
-            
-        //     const input3 = document.createElement('input');
-        //     input3.type = 'text';
-        //     input3.className = 'w-[180px] h-[35px] p-[10px] text-black text-xl';
-        //     cell3.appendChild(input3);
-
-        //     const input4 = document.createElement('input');
-        //     input4.type = 'text';
-        //     input4.className = 'w-[180px] h-[35px] p-[10px] text-black text-xl';
-        //     cell4.appendChild(input4);
-
-
-  
-
-        // }
-
-
-            async function loadDetails()
-            {
-                try {
-        const response = await fetch('/get-jobs', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        const job = await response.json();
-        if (response.status === 200) {
-            document.getElementById('name').value = user.name;
-            document.getElementById('email').value = user.email;
-
-        }
-
-
-            }catch(error)
-            {
+                const job = await response.json();
+                if (response.status === 200) {
+                    document.getElementById('name').value = job.name;
+                    document.getElementById('email').value = job.email;
+                }
+            } catch (error) {
                 console.log(error);
             }
         }
 
-
-
-            //     try {
-            //     const response = await fetch('/get-user');
-            //     if (response.ok) {
-            //         const user = await response.json();
-            //         console.log(user.name);
-            //         document.getElementById('name').value = user.name;
-            //         document.getElementById('email').value = user.email;
-            //     } else {
-            //         console.error('Failed to fetch user data');
-            //     }
-            // } catch (error) {
-            //     console.error('Error:', error);
-            // }
-        
-
-        async function loadToCandidateHome(){
-
-            try {
+        async function loadToCandidateHome() {
+    try {
         const response = await fetch('/get-jobs', {
             method: 'GET',
             headers: {
@@ -235,26 +165,26 @@
         });
 
         const job = await response.json();
-        // console.log(job);
-
         if (response.status === 200) {
             const jobTable = document.getElementById('jobtable');
             jobTable.innerHTML = '';
 
-            job.forEach((job, index) => {
+            job.forEach((job) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${job.job_id}</td>
                     <td>${job.job_name}</td>
-                    
                     <td>${job.location}</td>
                     <td>${job.skills}</td>
                     <td>${job.description}</td>
-                     <td><button class="apply-btn bg-blue-500 text-white px-4 py-2 ml-[60px] rounded">Apply</button></td>
-                   
+                    <td><button class="apply-btn bg-blue-500 text-white px-4 py-2 ml-[60px] rounded" data-job-id="${job.job_id}">Apply</button></td>
                 `;
                 jobTable.appendChild(row);
-                row.className="font-bold bg-white border-2 border-blue-800 text-center w-[80%] " 
+                row.className = "font-bold bg-white border-2 border-blue-800 text-center w-[80%]";
+            });
+
+            document.querySelectorAll('.apply-btn').forEach(button => {
+                button.addEventListener('click', handleApply);
             });
         } else {
             alert("Failed to fetch job details");
@@ -262,15 +192,59 @@
     } catch (error) {
         alert('An unexpected error occurred');
     }
+}
 
-        }            
-          
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+async function handleApply(event) {
+    const button = event.target;
+    const jobId = button.getAttribute('data-job-id');
+    const userName = document.getElementById('can-name').textContent;
+    const token = getCookie('AuthToken');
+
+    try {
+        const response = await fetch('/apply-job', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                jobId,
+                userName,
+            }),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert('Application submitted successfully');
+        } else {
+            const errorData = await response.json();
+            alert(`Failed to submit application: ${errorData.message}`);
+        }
+    } catch (error) {
+        console.error('Error during application submission:', error);
+        alert('An unexpected error occurred');
+    }
+}
+    document.getElementById('logoutButton').addEventListener('click', function() {
+    fetch('/logout', { method: 'GET' })
+    .then(response => {
+        if (response.ok) {
+            // window.location.href = '/';
+        } else {
+            alert('Logout failed');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
 
         
-
-            
     </script>
-
 </body>
 
 </html>
